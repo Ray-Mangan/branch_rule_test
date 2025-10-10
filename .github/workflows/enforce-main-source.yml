@@ -1,0 +1,18 @@
+name: enforce-main-source
+
+on:
+  pull_request:
+    branches: [main] # only when PR targets main
+
+jobs:
+  gate:
+    name: require-dev-as-source
+    runs-on: ubuntu-latest
+    steps:
+      - name: fail if source is not dev
+        run: |
+          SRC="${{ github.head_ref }}"
+          echo "source branch is: $SRC"
+          if [[ "$SRC" != "dev" && "$SRC" != hotfix/* ]]; then
+            echo "only dev or hotfix/* can target main"; exit 1;
+          fi

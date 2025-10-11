@@ -9,10 +9,82 @@ jobs:
     name: require-dev-as-source
     runs-on: ubuntu-latest
     steps:
-      - name: fail if source is not dev
+      - name: Starting Branch Validation
+        run: |
+          echo "=========================================="
+          echo "🚀 STARTING: Branch Rule Validation"
+          echo "=========================================="
+          echo ""
+          echo "ℹ️  This workflow ensures PRs to 'main' come from approved source branches."
+          echo ""
+      
+      - name: Checking Source Branch
         run: |
           SRC="${{ github.head_ref }}"
-          echo "source branch is: $SRC"
-          if [[ "$SRC" != "dev" && "$SRC" != hotfix/* ]]; then
-            echo "only dev or hotfix/* can target main"; exit 1;
+          echo "=========================================="
+          echo "🔍 RUNNING: Branch Source Check"
+          echo "=========================================="
+          echo ""
+          echo "📋 Pull Request Details:"
+          echo "   • Source Branch: $SRC"
+          echo "   • Target Branch: ${{ github.base_ref }}"
+          echo "   • PR Number: #${{ github.event.pull_request.number }}"
+          echo ""
+          echo "🔎 Validating source branch against allowed branches..."
+          echo ""
+          
+          # Check if source branch matches allowed patterns
+          if [[ "$SRC" == "dev" ]]; then
+            echo "✅ SUCCESS: Source branch 'dev' is allowed"
+            echo ""
+            echo "=========================================="
+            echo "✅ PASSED: Branch Validation Complete"
+            echo "=========================================="
+            echo ""
+            echo "🎉 The pull request meets all branch requirements!"
+            echo "✅ Source branch: $SRC ✓"
+            echo "✅ Target branch: main ✓"
+            echo ""
+            exit 0
+          elif [[ "$SRC" == hotfix/* ]]; then
+            echo "✅ SUCCESS: Source branch '$SRC' matches hotfix pattern"
+            echo ""
+            echo "=========================================="
+            echo "✅ PASSED: Branch Validation Complete"
+            echo "=========================================="
+            echo ""
+            echo "🎉 The pull request meets all branch requirements!"
+            echo "✅ Source branch: $SRC ✓"
+            echo "✅ Target branch: main ✓"
+            echo ""
+            exit 0
+          else
+            echo "=========================================="
+            echo "❌ FAILED: Branch Validation Failed"
+            echo "=========================================="
+            echo ""
+            echo "⛔ ERROR: Invalid source branch detected!"
+            echo ""
+            echo "📋 Details:"
+            echo "   • Source Branch: $SRC"
+            echo "   • Target Branch: main"
+            echo ""
+            echo "❌ The source branch '$SRC' is NOT allowed to merge into 'main'."
+            echo ""
+            echo "📌 ALLOWED SOURCE BRANCHES:"
+            echo "   ✓ dev"
+            echo "   ✓ hotfix/*"
+            echo ""
+            echo "💡 WHAT YOU NEED TO DO:"
+            echo "   1. If this is a regular feature or bug fix:"
+            echo "      → Merge your branch into 'dev' first"
+            echo "      → Then create a PR from 'dev' to 'main'"
+            echo ""
+            echo "   2. If this is a critical hotfix:"
+            echo "      → Rename your branch to match the pattern 'hotfix/*'"
+            echo "      → Example: hotfix/critical-bug-fix"
+            echo ""
+            echo "=========================================="
+            echo ""
+            exit 1
           fi

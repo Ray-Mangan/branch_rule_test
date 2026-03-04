@@ -1,12 +1,12 @@
-### basic info
+### Basic Info
 
-**pull all remote changes**
+**Pull all remote changes**
 
 ```git
 git fetch --all
 ```
 
-**what branch am i on?**
+**What branch am I on?**
 
 ```
 git branch
@@ -64,4 +64,25 @@ git commit -m "your commit message"
 
 ```
 git push
+```
+
+### Undo a commit
+
+**1. Undo commit and unstage changes**
+
+```
+
+git reset HEAD~1
+```
+
+**2. Undo commit and discard changes**
+
+```
+git reset --hard HEAD~1
+```
+
+**3. Undo a pushed commit (creates new commit)**
+
+```
+git revert HEAD
 ```

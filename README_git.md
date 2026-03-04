@@ -86,5 +86,3 @@ git reset --hard HEAD~1
 ```
 git revert HEAD
 ```
-
-lets push a mistake a revert it

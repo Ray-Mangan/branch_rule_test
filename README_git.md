@@ -2,29 +2,23 @@
 
 **Pull all remote changes**
 
-```git
-git fetch --all
-```
+`git fetch --all`
+
+---
 
 **What branch am I on?**
 
-```
-git branch
-```
+`git branch`
 
-**Git Status**
+---
 
-- current branch
-- uncommited changes
-- staged changes
-- untracked files
-- branch sync status
+**Check Current Status** - current branch - uncommited changes - staged changes - untracked files - branch sync status
 
-```git
-git status
-```
+`git status`
 
 ### Basic Flow
+
+> Clone => Fetch Changes => Create Branch => Add => Commit => Push
 
 **Clone repo to current folder**
 
@@ -36,29 +30,41 @@ git clone <repository-url>
 git clone <repo-url> <folder-path>
 ```
 
-**create new branch**
+---
+
+**Create New Branch**
 
 ```
 git checkout -b <branch-name>
 ```
 
-**publish new branch and set upstream origin**
+---
+
+**Publish new branch and set upstream origin**
 
 ```
 git push -u origin <branch-name>
 ```
 
-**stage all changes**
+'**-u**' sets tracking to the upstream origin. This is only needed when first publishing a new branch on the first push. If you create a branch on github, or use VS Code UI "create branch", this is not needed.
+
+---
+
+**Stage all Changes**
 
 ```
 git add .
 ```
 
-**commit**
+---
+
+**Commit**
 
 ```
 git commit -m "your commit message"
 ```
+
+---
 
 **Push**
 
@@ -75,11 +81,15 @@ git push
 git reset HEAD~1
 ```
 
+---
+
 **2. Undo commit and discard changes**
 
 ```
 git reset --hard HEAD~1
 ```
+
+---
 
 **3. Undo a pushed commit (creates new commit)**
 
